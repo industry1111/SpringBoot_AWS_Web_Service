@@ -16,16 +16,20 @@ repositories {
 
 dependencies {
     implementation('org.springframework.boot:spring-boot-starter-web')
-//    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
     implementation('org.springframework.boot:spring-boot-starter-test:2.5.4')
-    implementation('org.projectlombok:lombok: 1.18.22')
+
     implementation 'org.projectlombok:lombok:1.18.26'
+
+    implementation('com.h2database:h2:2.1.214')
+
     testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
     testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
 
-
     // https://mvnrepository.com/artifact/io.rest-assured/spring-mock-mvc
     testImplementation 'io.rest-assured:spring-mock-mvc:3.0.0'
+
+
 }
 
 
