@@ -1,10 +1,10 @@
 package com.example.book.domain.posts;
 
 
+import com.example.book.domain.repository.PostsRepository;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,13 +12,20 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class PostsRepositoryTest {
 
     @Autowired
     private PostsRepository postsRepository;
+
+    //Junit5 단위 테스트가 끝날때마다 수행되는 메소드 지정
+    @AfterEach
+    public void cleanup() {
+        System.out.println("cleanup() 메소드 호출");
+        postsRepository.deleteAll();
+    }
+
 
     @Test
     public void 게시글저장_불러오기() {
@@ -40,12 +47,6 @@ public class PostsRepositoryTest {
         Assertions.assertThat(posts.getTitle()).isEqualTo(title);
     }
 
-    //Junit5 단위 테스트가 끝날때마다 수행되는 메소드 지정
-    @AfterAll
-    public void cleanup() {
-        System.out.println("cleanup() 메소드 호출");
-        postsRepository.deleteAll();
-    }
 
 
 }
