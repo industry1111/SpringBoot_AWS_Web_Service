@@ -2,6 +2,7 @@ package com.example.book.domain.service.posts;
 
 import com.example.book.domain.posts.Posts;
 import com.example.book.domain.repository.PostsRepository;
+import com.example.book.web.dto.PostsListResponseDto;
 import com.example.book.web.dto.PostsResponseDto;
 import com.example.book.web.dto.PostsUpdateRequestDto;
 import com.example.book.web.dto.PostsSaveRequestDto;
@@ -9,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -32,12 +35,30 @@ public class PostsService {
         return id;
     }
 
+    @Transactional
     public PostsResponseDto findById(Long id) {
-        Posts entity = postsRepository.findById(id)
+        Posts posts = postsRepository.findById(id)
                 .orElseThrow(
                                 () -> new IllegalArgumentException("해당 게시글이 없습니다. id : " + id)
                             );
 
-        return new PostsResponseDto(entity);
+        return new PostsResponseDto(posts);
+    }
+
+    @Transactional
+    public List<PostsListResponseDto> findAllDesc() {
+        return postsRepository.findALLDesc().stream()
+                .map(PostsListResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        Posts posts = postsRepository.findById(id)
+                .orElseThrow(
+                        () -> new IllegalArgumentException("해당 게시글이 없습니다. id : " + id)
+                );
+
+        postsRepository.delete(posts);
     }
 }
