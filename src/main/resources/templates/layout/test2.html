@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css">
+    <style>
+        .login-form {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .blur-background {
+            filter: blur(5px);
+        }
+
+        .card {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 30px;
+            height: 30px;
+            margin-right: 5px;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+
+        .profile img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+
+        .footer {
+            background-color: #f8f9fa;
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+        }
+    </style>
+    <title>Instagram</title>
+</head>
+
+<body>
+
+<!-- 네비게이션 바 -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        <div class="logo">
+            <img src="/img/logo.png" alt="Logo">
+            <a class="navbar-brand" href="#">Instagram</a>
+        </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id="homeLink">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id="profileLink">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id="settingsLink">Settings</a>
+                </li>
+                <li class="nav-item">
+                    <div class="profile" id="profileArea" style="display: none;">
+                        <img src="/img/profile.png" alt="Profile">
+                        <a class="nav-link" href="#" id="logoutButton">Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- 그리드 시스템과 카드 -->
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <img src="/img/img.png" class="card-img-top" alt="Image 1">
+
+
+                <div class="card-body">
+                    <h5 class="card-title">Image 1</h5>
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    <a href="#" class="btn btn-primary">Read More</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="/img/img.png" class="card-img-top" alt="Image 2">
+                <div class="card-body">
+                    <h5 class="card-title">Image 2</h5>
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    <a href="#" class="btn btn-primary">Read More</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="/img/img.png" class="card-img-top" alt="Image 3">
+                <div class="card-body">
+                    <h5 class="card-title">Image 3</h5>
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    <a href="#" class="btn btn-primary">Read More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 로그인 폼 -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="login-form">
+                <form>
+                    <div class="mb-3">
+                        <label for="username" class="form-label">아이디</label>
+                        <input type="text" class="form-control" id="username" placeholder="Enter your username">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">비밀번호</label>
+                        <input type="password" class="form-control" id="password" placeholder="Enter your password">
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="loginButton">Login</button>
+                    <div class="mt-2 text-center">
+                        <span>Don't have an account?</span>
+                        <a href="#" class="btn btn-link">회원가입</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 푸터 -->
+<div class="footer">
+    <p>Company Name | Email: info@company.com | Phone: 123-456-7890</p>
+</div>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const loginForm = document.querySelector(".login-form");
+        const cardsContainer = document.querySelector(".col-md-6");
+        const usernameInput = document.getElementById("username");
+        const passwordInput = document.getElementById("password");
+        const loginButton = document.getElementById("loginButton");
+        const homeLink = document.getElementById("homeLink");
+        const profileLink = document.getElementById("profileLink");
+        const settingsLink = document.getElementById("settingsLink");
+        const profileArea = document.getElementById("profileArea");
+        const logoutButton = document.getElementById("logoutButton");
+
+        setTimeout(function () {
+            if (usernameInput.value === "" && passwordInput.value === "") {
+                loginForm.style.display = "block";
+                cardsContainer.style.display = "none";
+                homeLink.classList.add("disabled");
+                profileLink.classList.add("disabled");
+                settingsLink.classList.add("disabled");
+                profileArea.style.display
+
+                    = "none";
+            }
+        }, 5000);
+
+        loginButton.addEventListener("click", function (e) {
+            e.preventDefault();
+            if (usernameInput.value !== "" && passwordInput.value !== "") {
+                loginForm.style.display = "none";
+                cardsContainer.style.display = "block";
+                homeLink.classList.remove("disabled");
+                profileLink.classList.remove("disabled");
+                settingsLink.classList.remove("disabled");
+                profileArea.style.display = "flex";
+            }
+        });
+
+        logoutButton.addEventListener("click", function (e) {
+            e.preventDefault();
+            loginForm.style.display = "block";
+            cardsContainer.style.display = "none";
+            homeLink.classList.add("disabled");
+            profileLink.classList.add("disabled");
+            settingsLink.classList.add("disabled");
+            profileArea.style.display = "none";
+        });
+    });
+</script>
+</body>
+
+</html>

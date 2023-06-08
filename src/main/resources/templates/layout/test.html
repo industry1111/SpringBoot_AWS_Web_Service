@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>게시판</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style>
+        .search-form {
+            margin-top: 20px;
+        }
+
+        .nav-column {
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        .content-column {
+            height: 100%;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 nav-column">
+            <h3>카테고리</h3>
+            <ul>
+                <li><a href="#">카테고리 1</a></li>
+                <li><a href="#">카테고리 2</a></li>
+                <li><a href="#">카테고리 3</a></li>
+                <!-- 카테고리 목록 추가 -->
+            </ul>
+        </div>
+        <div class="col-md-9 content-column">
+            <h1>게시판</h1>
+
+            <div class="search-form">
+                <form>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="검색어를 입력하세요">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit">검색</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- 게시글 목록 표시 -->
+            <div>
+                <!-- 게시글 목록을 표시하는 부분 -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</body>
+</html>
