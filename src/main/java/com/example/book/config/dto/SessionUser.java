@@ -3,8 +3,10 @@ package com.example.book.config.dto;
 import com.example.book.domain.user.Users;
 import lombok.Getter;
 
+import java.io.Serializable;
+
 @Getter
-public class SessionUser {
+public class SessionUser implements Serializable {
 
     private String name;
     private String email;
