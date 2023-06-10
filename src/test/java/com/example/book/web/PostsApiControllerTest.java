@@ -4,9 +4,9 @@ import com.example.book.domain.posts.Posts;
 import com.example.book.domain.repository.PostsRepository;
 import com.example.book.web.dto.PostsSaveRequestDto;
 import com.example.book.web.dto.PostsUpdateRequestDto;
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Test;
+
+import okhttp3.mockwebserver.MockWebServer;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,8 +15,8 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -36,13 +36,41 @@ public class PostsApiControllerTest {
     @Autowired
     private PostsRepository postsRepository;
 
+    private static MockWebServer mockWebServer;
+
+    @BeforeEach
+    void initialize() {
+        final String baseUrl = String.format("http://localhost:%s", mockWebServer.getPort());
+        final WebClient webClient = WebClient.create(baseUrl);
+        userService = new UserService(webClient);
+    }
+    @BeforeAll
+    static void setup() {
+        mockWebServer = new MockWebServer();
+        try {
+            mockWebServer.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @AfterEach
     public void deleteAll()  {
         postsRepository.deleteAll();
     }
 
+    @AfterAll
+    static void teadDown() {
+        try {
+            mockWebServer.shutdown();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @Test
+    @WithMockUser(roles = "USER")
     public void Posts_등록된다() throws Exception {
         //given
         String title = "title";
@@ -61,7 +89,7 @@ public class PostsApiControllerTest {
 
         //then
         assertThat(responseEntity.getStatusCode().is2xxSuccessful()).isTrue();
-        assertThat(responseEntity.getBody()).isGreaterThan(0L);
+7        assertThat(responseEntity.getBody()).isGreaterThan(0L);
 
         List<Posts> posts = postsRepository.findAll();
         assertThat(posts.get(0).getTitle()).isEqualTo(title);
@@ -69,6 +97,7 @@ public class PostsApiControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "USER")
     public void Posts_수정된다() throws Exception {
         //given
 
