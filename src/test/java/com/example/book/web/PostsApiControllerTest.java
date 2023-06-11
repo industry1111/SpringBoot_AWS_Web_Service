@@ -36,36 +36,10 @@ public class PostsApiControllerTest {
     @Autowired
     private PostsRepository postsRepository;
 
-    private static MockWebServer mockWebServer;
-
-    @BeforeEach
-    void initialize() {
-        final String baseUrl = String.format("http://localhost:%s", mockWebServer.getPort());
-        final WebClient webClient = WebClient.create(baseUrl);
-        userService = new UserService(webClient);
-    }
-    @BeforeAll
-    static void setup() {
-        mockWebServer = new MockWebServer();
-        try {
-            mockWebServer.start();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     @AfterEach
     public void deleteAll()  {
         postsRepository.deleteAll();
-    }
-
-    @AfterAll
-    static void teadDown() {
-        try {
-            mockWebServer.shutdown();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
 
@@ -89,7 +63,7 @@ public class PostsApiControllerTest {
 
         //then
         assertThat(responseEntity.getStatusCode().is2xxSuccessful()).isTrue();
-7        assertThat(responseEntity.getBody()).isGreaterThan(0L);
+        assertThat(responseEntity.getBody()).isGreaterThan(0L);
 
         List<Posts> posts = postsRepository.findAll();
         assertThat(posts.get(0).getTitle()).isEqualTo(title);

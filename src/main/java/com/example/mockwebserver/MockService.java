@@ -1,22 +1,21 @@
 package com.example.mockwebserver;
 
 import org.springframework.stereotype.Service;
-import org.springframework.test.web.reactive.server.WebTestClient;
+import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 @Service
 public class MockService {
 
-    private final WebTestClient webTestClient;
-    public MockService(WebTestClient webTestClient, WebTestClient webTestClient1) {
+    private final WebClient webClient;
 
-        this.webTestClient = webTestClient1;
+    public MockService(WebClient webClient) {
+        this.webClient = webClient;
     }
 
-    public Mono<MockDto> getUserById(Integer userId) {
-        return webTestClient
-                .get()
-                .uri("/users/{id}", userId)
-                .attribute()
+    public Mono<MockDto> getMockDtoById(Integer id) {
+        return webClient.get()
+                .uri("/user/{id}",id)
+                .retrieve()
                 .bodyToMono(MockDto.class);
     }
 }
