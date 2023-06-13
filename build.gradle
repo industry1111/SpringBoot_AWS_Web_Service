@@ -46,6 +46,13 @@ dependencies {
     implementation("io.projectreactor:reactor-core:3.3.0.RELEASE")
     testImplementation 'io.projectreactor:reactor-test'
 
+
+    compileOnly 'org.projectlombok:lombok' // 컴파일 환경에서 주입
+    annotationProcessor 'org.projectlombok:lombok' // annotationProcessor 주입
+
+    testCompileOnly 'org.projectlombok:lombok:' // 테스트 환경에서 주입
+    testAnnotationProcessor 'org.projectlombok:lombok' // 테스트환경의 어노테이션 주입
+
 }
 
 
